@@ -17,7 +17,17 @@ def is_consistent(h, x):
     return all(h[i] == '?' or h[i] == x[i] for i in range(len(h)))
 
 def generalize(h, x):
-    return [x[i] if h[i] == '0' else ('?' if h[i] != x[i] else h[i]) for i in range(len(h))]
+    result = []
+
+    for i in range(len(h)):
+        if h[i] == '0':
+            result.append(x[i])
+        elif h[i] != x[i]:
+            result.append('?')
+        else:
+            result.append(h[i])
+    
+    return result
 
 def candidate_elimination(x, y):
     n = len(x[0])
@@ -29,8 +39,10 @@ def candidate_elimination(x, y):
             G = [g for g in G if is_consistent(g, xi)]
             S = [generalize(s, xi) for s in S]
             S = [s for s in S if any(is_consistent(g, s) for g in G)]
+
         else:
             S = [s for s in S if not is_consistent(s, xi)]
+            
             new_G = []
 
             for g in G:
