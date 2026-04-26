@@ -13,6 +13,7 @@ classes = np.unique(y_train)
 
 mean = np.array([x_train[y_train == c].mean(axis=0) for c in classes])
 var  = np.array([x_train[y_train == c].var(axis=0)  for c in classes])
+
 prior = np.array([np.mean(y_train == c) for c in classes])
 
 def gaussian(x, mean, var):
