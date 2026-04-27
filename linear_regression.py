@@ -1,25 +1,28 @@
-import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 
 df = pd.read_csv("dataset.csv")
 
-x = df.iloc[:, :-1].values
-y = df.iloc[:, -1].values
+x = df.iloc[:, 0]
+y = df.iloc[:, 1]
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_mean = x.mean()
+y_mean = y.mean()
 
-x_train = np.hstack([np.ones((len(x_train), 1)), x_train])
-x_test  = np.hstack([np.ones((len(x_test), 1)),  x_test])
+num = ((x - x_mean) * (y - y_mean)).sum()
+den = ((x - x_mean) ** 2).sum()
 
-w = np.linalg.pinv(x_train.T @ x_train) @ x_train.T @ y_train
+b1 = num / den
 
-y_pred = x_test @ w
+b0 = y_mean - b1 * x_mean
 
-mse  = np.mean((y_pred - y_test) ** 2)
-rmse = np.sqrt(mse)
-r2   = 1 - np.sum((y_test - y_pred) ** 2) / np.sum((y_test - y_test.mean()) ** 2)
+print("Slope (b1):", b1)
+print("Intercept (b0):", b0)
 
-print(f"MSE:  {mse:.4f}")
-print(f"RMSE: {rmse:.4f}")
-print(f"R2:   {r2:.4f}")
+y_pred = b0 + b1 * x
+
+print("Predicted values:\n", y_pred)
+
+x_new = float(input("Enter a value for x: "))
+y_new = b0 + b1 * x_new
+
+print("Predicted value of y:", y_new)
