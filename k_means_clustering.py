@@ -1,45 +1,40 @@
-import numpy as np
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
-from scipy.stats import mode
 
 df = pd.read_csv("dataset.csv")
 
-x = df.iloc[:, :-1].values
-y = df.iloc[:, -1].values
+x = df.iloc[:, :2].values 
+# change to df.iloc[:, :-1].values if more features
 
-x = StandardScaler().fit_transform(x)
+k = 3
+# change to len(np.unique(df.iloc[:, -1])) if different classes
 
-k = len(np.unique(y))
+centroids = x[:k]
 
-np.random.seed(42)
+for _ in range(10):
+    clusters = [[] for _ in range(k)]
 
-centroids = x[np.random.choice(len(x), k, replace=False)]
+    for i in x:
+        distances = [np.linalg.norm(i - c) for c in centroids]
+        clusters[np.argmin(distances)].append(i)
 
-for _ in range(100):
-    distances  = np.linalg.norm(x[:, None] - centroids, axis=2)
-    clusters   = np.argmin(distances, axis=1)
+    new_centroids = []
+    
+    for c in clusters:
+        if len(c) == 0:
+            new_centroids.append(x[np.random.randint(0, len(x))])
+        else:
+            new_centroids.append(np.mean(c, axis=0))
 
-    new_centroids = np.array([x[clusters == i].mean(axis=0) for i in range(k)])
+    centroids = np.array(new_centroids)
 
-    if np.allclose(centroids, new_centroids): break
+for i, cluster in enumerate(clusters):
+    cluster = np.array(cluster)
+    plt.scatter(cluster[:, 0], cluster[:, 1])
 
-    centroids = new_centroids
-
-labels = np.zeros_like(clusters)
-
-for i in range(k):
-    mask = clusters == i
-    labels[mask] = mode(y[mask], keepdims=True)[0][0]
-
-accuracy = np.mean(labels == y) * 100
-
-print(f"Accuracy: {accuracy:.2f}%")
-
-plt.figure(figsize=(8, 5))
-plt.scatter(x[:, 0], x[:, 1], c=clusters, cmap="viridis")
-plt.scatter(centroids[:, 0], centroids[:, 1], c="red", marker="X", s=200, label="Centroids")
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', s=200)
 plt.title("K-Means Clustering")
-plt.legend()
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
 plt.show()
