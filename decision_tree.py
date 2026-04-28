@@ -16,5 +16,8 @@ model.fit(x_train, y_train)
 print(f"Accuracy: {model.score(x_test, y_test) * 100:.2f}%")
 
 plt.figure(figsize=(14, 7))
-plot_tree(model, feature_names=list(x.columns), class_names=model.classes_.astype(str), filled=True)
+plot_tree(model, 
+          feature_names=list(x.columns), 
+          class_names=model.classes_.astype(str), 
+          filled=True)
 plt.show()
