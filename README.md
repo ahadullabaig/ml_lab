@@ -29,6 +29,9 @@
 |-----------|------|-------------|
 | **Gaussian Naive Bayes** | `naive_bayes_gaussian.py` | Computes class posteriors using per-feature Gaussian likelihoods — no sklearn |
 | **Decision Tree** | `decision_tree.py` | Entropy-based splitting via sklearn with full tree visualization |
+| **Random Forest** | `random_forest.py` | Sklearn ensemble of 100 trees with feature importance breakdown |
+| **Logistic Regression** | `logistic_regression.py` | Sigmoid + binary cross-entropy gradient descent, by hand |
+| **SVM** | `svm.py` | Linear-kernel sklearn SVC with decision-boundary plot |
 | **Neural Network** | `ann.py` | 2-layer feedforward net with sigmoid + softmax, backprop by hand |
 
 ### 📈 Regression
@@ -36,12 +39,20 @@
 | Algorithm | File | What it does |
 |-----------|------|-------------|
 | **Linear Regression** | `linear_regression.py` | Closed-form solution via Moore-Penrose pseudoinverse: `w = (XᵀX)⁻¹Xᵀy` |
+| **Gradient Descent** | `gradient_descent.py` | Iterative least-squares fit — updates `m, c` by hand using the MSE gradient |
 
 ### 🔵 Clustering
 
 | Algorithm | File | What it does |
 |-----------|------|-------------|
 | **K-Means** | `k_means_clustering.py` | Iterative centroid clustering with convergence detection and 2D visualization |
+| **K-Medoids** | `k_medoids.py` | Same loop as K-Means, but each cluster center is the in-cluster point with minimum total distance |
+
+### 📉 Dimensionality Reduction
+
+| Algorithm | File | What it does |
+|-----------|------|-------------|
+| **PCA** | `pca.py` | Sklearn PCA after standardization — projects to 2D with explained-variance report |
 
 ---
 
@@ -112,6 +123,20 @@ Used by: Find-S, Candidate Elimination
 
 </details>
 
+<details>
+<summary><strong>datasets/</strong> — Per-algorithm CSVs for the new programs</summary>
+
+| File | Used by | Shape |
+|------|---------|-------|
+| `gb.csv` | Gradient Descent | 50 rows, `x, y` (linear) |
+| `logisticreg.csv` | Logistic Regression | 103 rows, `X, Y` (binary) |
+| `svm.csv` | SVM | 50 rows, `x, y, class` (2D, 2 classes) |
+| `km.csv` | K-Medoids | 96 rows, `X, Y` (4 visible clusters) |
+| `pca.csv` | PCA | 90 rows, `f1..f5, label` |
+| `randomforest.csv` | Random Forest | 50 rows, `feature1..3, class` |
+
+</details>
+
 ---
 
 ## 🚀 Run
@@ -121,7 +146,13 @@ python find_s.py
 python candidate_elimination.py
 python naive_bayes_gaussian.py
 python decision_tree.py
+python random_forest.py
+python logistic_regression.py
+python svm.py
 python linear_regression.py
+python gradient_descent.py
 python k_means_clustering.py
+python k_medoids.py
+python pca.py
 python ann.py
 ```
