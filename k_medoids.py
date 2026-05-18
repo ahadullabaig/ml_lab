@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("datasets/km.csv")
-
-x = df.iloc[:, :].values
+x = pd.read_csv("datasets/km.csv").values
 
 k = 4
 
@@ -31,7 +29,4 @@ for cluster in clusters:
     plt.scatter(cluster[:, 0], cluster[:, 1])
 
 plt.scatter(medoids[:, 0], medoids[:, 1], marker='x', s=200, c='black')
-plt.title("K-Medoids Clustering")
-plt.xlabel("X")
-plt.ylabel("Y")
 plt.show()
