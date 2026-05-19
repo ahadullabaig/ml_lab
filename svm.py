@@ -22,12 +22,9 @@ for c in np.unique(y):
 w = model.coef_[0]
 b = model.intercept_[0]
 
-xs = np.linspace(x[:, 0].min(), x[:, 0].max(), 100)
+xs = np.array([x[:, 0].min(), x[:, 0].max()])
 ys = -(w[0] * xs + b) / w[1]
 
 plt.plot(xs, ys, 'k--', label="Decision boundary")
-plt.title("SVM")
-plt.xlabel("x")
-plt.ylabel("y")
 plt.legend()
 plt.show()
