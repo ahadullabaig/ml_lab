@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("dataset.csv")
 
@@ -11,18 +12,23 @@ y_mean = y.mean()
 num = ((x - x_mean) * (y - y_mean)).sum()
 den = ((x - x_mean) ** 2).sum()
 
-b1 = num / den
+m = num / den
 
-b0 = y_mean - b1 * x_mean
+c = y_mean - m * x_mean
 
-print("Slope (b1):", b1)
-print("Intercept (b0):", b0)
+print("Slope:", m)
+print("Intercept:", c)
 
-y_pred = b0 + b1 * x
+y_pred = m*x + c
 
 print("Predicted values:\n", y_pred)
 
-x_new = float(input("Enter a value for x: "))
-y_new = b0 + b1 * x_new
+plt.scatter(x, y, label="Actual data")
+plt.plot(x, y_pred, label="Regression line")
+plt.legend()
+plt.show()
 
-print("Predicted value of y:", y_new)
+# x_new = float(input("Enter a value for x: "))
+# y_new = m*x_new + c
+
+# print("Predicted value of y:", y_new)
