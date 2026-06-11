@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
 df = pd.read_csv("datasets/logisticreg.csv")
@@ -28,3 +29,8 @@ accuracy = np.mean(preds == y_test) * 100
 
 print(f"Weight: {w:.4f}, Bias: {b:.4f}")
 print(f"Accuracy: {accuracy:.2f}%")
+
+plt.plot(y_test, label="Actual", marker="o")
+plt.plot(preds, label="Predicted", marker="x", linestyle="--")
+plt.legend()
+plt.show()
