@@ -4,8 +4,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv("dataset.csv")
 
-x = df.iloc[:, :2].values 
-# change to df.iloc[:, :-1].values if more features
+x = df.iloc[:, :-1].values
 
 k = 3
 # change to len(np.unique(df.iloc[:, -1])) if different classes
@@ -29,9 +28,9 @@ for _ in range(10):
 
     centroids = np.array(new_centroids)
 
-for i, cluster in enumerate(clusters):
-    cluster = np.array(cluster)
-    plt.scatter(cluster[:, 0], cluster[:, 1])
+for i, c in enumerate(clusters):
+    c = np.array(c)
+    plt.scatter(c[:, 0], c[:, 1])
 
 plt.scatter(centroids[:, 0], centroids[:, 1], marker='x', s=200)
 plt.title("K-Means Clustering")
