@@ -51,7 +51,7 @@ def candidate_elimination(x, y):
                         if g[i] == '?':
                             for val in set(row[i] for row in x):
                                 if val != xi[i]:
-                                    h = g[:]
+                                    h = list(g)
                                     h[i] = val
                                     if any(is_consistent(h, s) for s in S):
                                         new_G.append(h)
