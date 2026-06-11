@@ -24,9 +24,9 @@ for _ in range(10):
 
     medoids = np.array(new_medoids)
 
-for cluster in clusters:
-    cluster = np.array(cluster)
-    plt.scatter(cluster[:, 0], cluster[:, 1])
+for i, c in enumerate(clusters):
+    c = np.array(c)
+    plt.scatter(c[:, 0], c[:, 1])
 
 plt.scatter(medoids[:, 0], medoids[:, 1], marker='x', s=200, c='black')
 plt.show()
