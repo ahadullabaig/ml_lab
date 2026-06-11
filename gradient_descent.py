@@ -28,7 +28,4 @@ plt.scatter(x, y)
 
 plt.plot(x, m*x+c)
 
-plt.xlabel('x')
-plt.ylabel('y')
-
 plt.show()
